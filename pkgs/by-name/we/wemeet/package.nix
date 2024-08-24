@@ -36,7 +36,6 @@
 }:
 
 stdenv.mkDerivation {
-
   pname = "wemeet";
   version = "3.19.2.400";
 
@@ -103,13 +102,13 @@ stdenv.mkDerivation {
     rm $out/opt/wemeet/lib/libcurl.so
 
     substituteInPlace $prefix/wemeetapp.sh \
-      --replace "检测到窗口系统采用wayland协议，腾讯会议暂不兼容，程序即将退出！" \
+      --replace-fail "检测到窗口系统采用wayland协议，腾讯会议暂不兼容，程序即将退出！" \
                 "检测到窗口系统采用 Wayland 协议，将尝试在 XWayland 模式下启动。" \
-      --replace "exit 1" "export XDG_SESSION_TYPE=x11; unset WAYLAND_DISPLAY" \
-      --replace zenity ${zenity}/bin/zenity
+      --replace-fail "exit 1" "export XDG_SESSION_TYPE=x11; unset WAYLAND_DISPLAY" \
+      --replace-fail zenity ${zenity}/bin/zenity
 
     substituteInPlace $out/share/applications/wemeetapp.desktop \
-      --replace /opt/wemeet $prefix
+      --replace-fail /opt/wemeet $prefix
 
     wrapProgram $prefix/wemeetapp.sh \
       --set XKB_CONFIG_ROOT "${xkeyboard_config}/share/X11/xkb"
@@ -126,5 +125,4 @@ stdenv.mkDerivation {
     maintainers = with maintainers; [ zincentimeter ];
     mainProgram = "wemeetapp";
   };
-
 }
