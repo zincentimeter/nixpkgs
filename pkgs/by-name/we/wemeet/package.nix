@@ -40,6 +40,8 @@ stdenv.mkDerivation {
   version = "3.19.2.400";
 
   src = fetchurl {
+    # Source deb pack comes from the official link:
+    # https://meeting.tencent.com/download/
     url = "https://updatecdn.meeting.qq.com/cos/fb7464ffb18b94a06868265bed984007/TencentMeeting_0300000000_3.19.2.400_x86_64_default.publish.officialwebsite.deb";
     hash = "sha256-PSGc4urZnoBxtk1cwwz/oeXMwnI02Mv1pN2e9eEf5kE=";
   };
